@@ -1,0 +1,67 @@
+name: Update LeetCode Progress
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Count solutions
+        id: count
+        run: |
+          # Count solutions in each difficulty folder
+          EASY_COUNT=$(find Easy -type d -mindepth 1 -maxdepth 1 2>/dev/null | wc -l)
+          MEDIUM_COUNT=$(find Medium -type d -mindepth 1 -maxdepth 1 2>/dev/null | wc -l)
+          HARD_COUNT=$(find Hard -type d -mindepth 1 -maxdepth 1 2>/dev/null | wc -l)
+          TOTAL_COUNT=$((EASY_COUNT + MEDIUM_COUNT + HARD_COUNT))
+          
+          echo "easy=$EASY_COUNT" >> $GITHUB_OUTPUT
+          echo "medium=$MEDIUM_COUNT" >> $GITHUB_OUTPUT
+          echo "hard=$HARD_COUNT" >> $GITHUB_OUTPUT
+          echo "total=$TOTAL_COUNT" >> $GITHUB_OUTPUT
+          
+          echo "📊 Progress: Easy=$EASY_COUNT, Medium=$MEDIUM_COUNT, Hard=$HARD_COUNT, Total=$TOTAL_COUNT"
+      
+      - name: Update README badges
+        run: |
+          TOTAL="${{ steps.count.outputs.total }}"
+          EASY="${{ steps.count.outputs.easy }}"
+          MEDIUM="${{ steps.count.outputs.medium }}"
+          HARD="${{ steps.count.outputs.hard }}"
+          
+          # Update the badges in README.md
+          sed -i "s/solved-[0-9]*-brightgreen/solved-$TOTAL-brightgreen/g" README.md
+          sed -i "s/easy-[0-9]*-green/easy-$EASY-green/g" README.md
+          sed -i "s/medium-[0-9]*-yellow/medium-$MEDIUM-yellow/g" README.md
+          sed -i "s/hard-[0-9]*-red/hard-$HARD-red/g" README.md
+          
+          # Update the last updated date
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          sed -i "s/\*\*Last Updated:\*\* [0-9-]*/\*\*Last Updated:\*\* $CURRENT_DATE/g" README.md
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git diff --staged --quiet || git commit -m "🤖 Auto-update LeetCode progress stats"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

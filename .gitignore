@@ -1,0 +1,27 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Language-specific
+*.class
+*.pyc
+__pycache__/
+*.o
+*.exe
+node_modules/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.log
+tmp/
+temp/
