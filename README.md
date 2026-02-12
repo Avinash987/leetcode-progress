@@ -4,10 +4,10 @@ A repository to track and showcase my LeetCode problem-solving journey on GitHub
 
 ## 📊 Progress Overview
 
-![Problems Solved](https://img.shields.io/badge/solved-0-brightgreen)
-![Easy](https://img.shields.io/badge/easy-0-green)
-![Medium](https://img.shields.io/badge/medium-0-yellow)
-![Hard](https://img.shields.io/badge/hard-0-red)
+![Problems Solved](https://img.shields.io/badge/solved-3-brightgreen)
+![Easy](https://img.shields.io/badge/easy-1-green)
+![Medium](https://img.shields.io/badge/medium-1-yellow)
+![Hard](https://img.shields.io/badge/hard-1-red)
 
 ## 📁 Repository Structure
 
@@ -80,17 +80,17 @@ Create a `README.md` in each problem folder:
 
 Track the various topics and data structures practiced:
 
-- [ ] Arrays
+- [x] Arrays
 - [ ] Strings
-- [ ] Linked Lists
+- [x] Linked Lists
 - [ ] Trees
 - [ ] Graphs
 - [ ] Dynamic Programming
 - [ ] Backtracking
 - [ ] Greedy Algorithms
-- [ ] Binary Search
+- [x] Binary Search
 - [ ] Sorting & Searching
-- [ ] Hash Tables
+- [x] Hash Tables
 - [ ] Stack & Queue
 - [ ] Heaps
 - [ ] Bit Manipulation
@@ -98,7 +98,7 @@ Track the various topics and data structures practiced:
 
 ## 🌟 Milestones
 
-- [ ] First problem solved
+- [x] First problem solved
 - [ ] 10 problems solved
 - [ ] 50 problems solved
 - [ ] 100 problems solved
